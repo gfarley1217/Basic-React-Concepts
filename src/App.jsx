@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Country from "./components/Country";
+import NewCountry from "./components/NewCountry";
 import "./App.css";
 
 function App() {
@@ -27,9 +28,28 @@ function App() {
     setCountries(
       countries.map((c) => {
         if (c.id !== countryId) return c;
-        const currentCount = c[medalName];
-        if (currentCount === 0) return c;
-        return { ...c, [medalName]: currentCount - 1 };
+        if (c[medalName] === 0) return c;
+        return { ...c, [medalName]: c[medalName] - 1 };
+      })
+    );
+  }
+
+  function handleAddCountry(name) {
+    const trimmed = name.trim();
+    if (trimmed.length === 0) return;
+
+    const id =
+      countries.length === 0
+        ? 1
+        : Math.max(...countries.map((c) => c.id)) + 1;
+
+    setCountries(
+      countries.concat({
+        id: id,
+        name: trimmed,
+        gold: 0,
+        silver: 0,
+        bronze: 0,
       })
     );
   }
@@ -37,7 +57,7 @@ function App() {
   const totalGold = countries.reduce((sum, c) => sum + c.gold, 0);
   const totalSilver = countries.reduce((sum, c) => sum + c.silver, 0);
   const totalBronze = countries.reduce((sum, c) => sum + c.bronze, 0);
-  const totalAllMedals = totalGold + totalSilver + totalBronze;
+  const totalAll = totalGold + totalSilver + totalBronze;
 
   return (
     <div>
@@ -47,7 +67,7 @@ function App() {
         <div>Total Gold: {totalGold}</div>
         <div>Total Silver: {totalSilver}</div>
         <div>Total Bronze: {totalBronze}</div>
-        <div>Total Medals: {totalAllMedals}</div>
+        <div>Total Medals: {totalAll}</div>
       </div>
 
       <div className="countries-container">
@@ -61,8 +81,11 @@ function App() {
           />
         ))}
       </div>
+
+      <NewCountry onAdd={handleAddCountry} />
     </div>
   );
 }
 
 export default App;
+

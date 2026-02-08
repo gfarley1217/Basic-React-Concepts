@@ -1,0 +1,54 @@
+#trigger {
+  width: 48px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+/* dark background behind dialog */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* dialog box */
+#dialog {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid black;
+  padding: 16px;
+  min-width: 280px;
+}
+
+#dialog header {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+#dialog input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid black;
+  margin-bottom: 12px;
+}
+
+#dialog button {
+  border: 1px solid black;
+  padding: 6px 10px;
+  margin-right: 8px;
+}
+
+#trigger {
+  width: 48px;
+  cursor: pointer;
+  margin-top: 16px;
+
+  transition: transform 0.25s ease-in-out;
+}
+
+#trigger:hover {
+  transform: rotate(180deg);
+}
